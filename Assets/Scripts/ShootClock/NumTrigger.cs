@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class NumTrigger : MonoBehaviour
 {
     public int T_Index;
     SpriteRenderer SR;
     public GameObject LevelUpPanel;
+
     private void Start()
     {
         SR = GetComponent<SpriteRenderer>();
@@ -23,6 +25,7 @@ public class NumTrigger : MonoBehaviour
                 collision.gameObject.GetComponent<Num>().SetIsChangeNum(false);
                 collision.gameObject.GetComponent<Num>().Target = gameObject;
                 LevelUpPanel.SetActive(true);
+                Coin.Instance.AddCoin(15);
             }
         }
     }

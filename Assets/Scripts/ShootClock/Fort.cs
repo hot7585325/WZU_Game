@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Fort : MonoBehaviour
 {
+    public VariableJoystick variableJoystick;
     public List<GameObject> BulletList=new List<GameObject>();  //觀察者模式-主體兼廣播者
     public float FortSpeed;
     public ObjectsPool _FortBulletPool;
@@ -12,12 +13,13 @@ public class Fort : MonoBehaviour
     bool IsChangeButtleType;
     private void Update()
     {
-        Rote();
+        KeyBoardCtrl();
+        UICtrl();
     }
 
     
-    //砲台旋轉
-    public void Rote()
+    //鍵盤砲台操作
+    public void KeyBoardCtrl()
     {
 
         switch (_Ctrl)
@@ -34,6 +36,11 @@ public class Fort : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     _FortBulletPool.GetComponent<ObjectsPool>().GetObjPool_O(gameObject.transform.position,gameObject.transform.rotation,null);
+                    SoundManager.Instance.Create_AS();
+                }
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    ChangeBulletsType();
                 }
                 break;
             case Ctrl.右操作:
@@ -48,6 +55,12 @@ public class Fort : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.P))
                 {
                     _FortBulletPool.GetComponent<ObjectsPool>().GetObjPool_O(gameObject.transform.position, gameObject.transform.rotation, null);
+                    SoundManager.Instance.Create_AS();
+                }
+
+                if (Input.GetKeyDown(KeyCode.O))
+                {
+                    ChangeBulletsType();
                 }
                 break;
             default:
@@ -58,7 +71,7 @@ public class Fort : MonoBehaviour
     //增加砲台轉速
     public void AddFortSpeed()
     {
-        FortSpeed += 5;
+        FortSpeed += 50;
     }
 
     //觀察者模式(註冊、移除、廣播)
@@ -72,6 +85,7 @@ public class Fort : MonoBehaviour
         BulletList.Remove(bts);
     }
 
+    //改變子彈類型(+-彈)
     public void ChangeBulletsType()
     {
          IsChangeButtleType= !IsChangeButtleType; ;
@@ -79,7 +93,7 @@ public class Fort : MonoBehaviour
         {
             foreach (var bts in BulletList)
             {
-                bts.GetComponent<Bullets>()._Calculation = Bullets.Calculation.加;
+                bts.GetComponent<Bullets>().SetBulletType(1);
                 Debug.Log("子彈為+法");
             }
         }
@@ -87,13 +101,38 @@ public class Fort : MonoBehaviour
         {
             foreach (var bts in BulletList)
             {
-                bts.GetComponent<Bullets>()._Calculation = Bullets.Calculation.減;
+                bts.GetComponent<Bullets>().SetBulletType(-1);
                 Debug.Log("子彈為-法");
             }
         }
      
     }
 
-    
+    //子彈尺寸
+    public void ChangeBulletsSize()
+    {
+
+        foreach (var bts in BulletList)
+        {
+            bts.GetComponent<Bullets>().BigButtleSize();
+            Debug.Log("子彈變大");
+        }
+    }
+
+
+    public void UICtrl()
+    {
+        if (variableJoystick != null)
+        {
+            Vector3 direction = Vector3.forward * variableJoystick.Horizontal+Vector3.forward * variableJoystick.Vertical;
+            gameObject.transform.Rotate(direction, -1 * FortSpeed * Time.deltaTime);
+        }
+    }
+
+    public void UIFire()
+    {
+        _FortBulletPool.GetComponent<ObjectsPool>().GetObjPool_O(gameObject.transform.position, gameObject.transform.rotation, null);
+    }
+
 
 }

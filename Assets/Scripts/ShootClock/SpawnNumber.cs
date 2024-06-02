@@ -8,5 +8,8 @@ public class SpawnNumber : MonoBehaviour
     public float RepeatRate;
     // Start is called before the first frame update
 
-
+    public void tt()
+    {
+        Debug.Log("11");
+    }
 }

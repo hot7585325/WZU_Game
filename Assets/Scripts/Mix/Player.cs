@@ -13,9 +13,8 @@ public class Player : MonoBehaviour
     public SpriteRenderer _SpriteRenderer;
     public bool IsStop;
     public bool IsGround;
-   // public bool AutoRun;
-   // public bool IsRun;
-    // Start is called before the first frame update
+
+    public GameObject UICtrl;
     void Start()
     {
         _SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -29,6 +28,19 @@ public class Player : MonoBehaviour
         RB2D.constraints = RigidbodyConstraints2D.FreezeRotation; //­­¨î±ÛÂà
         VJ_Movement();
         PlayerMovement();
+        /*
+        if (Input.touchCount > 0)
+        {
+            VJ_Movement();
+            UICtrl.SetActive(true);
+        }
+       else
+        {
+            PlayerMovement();
+            UICtrl.SetActive(false);
+        }
+       */
+      
        
 
         if (IsGround == true)

@@ -6,24 +6,13 @@ public class Bullets : MonoBehaviour
 {
     public ObjectsPool _FortBulletPool;
     public float Speed;
-    public enum Calculation { 加, 減 }
-    public Calculation _Calculation;
-    int type;
+    public int type;
     float time;
+
 
     private void Start()
     {
-        switch (_Calculation)
-        {
-            case Calculation.加:
-                type = 1;
-                break;
-            case Calculation.減:
-                type = -1;
-                break;
-            default:
-                break;
-        }
+        SetBulletType(-1);
     }
 
     private void Update()
@@ -38,6 +27,14 @@ public class Bullets : MonoBehaviour
     {
         return type;
     }
+
+    //設定子彈類型
+    public void SetBulletType(int calculation)
+    {
+        type = calculation;
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -60,7 +57,10 @@ public class Bullets : MonoBehaviour
         }
     }
 
-
+    public void BigButtleSize()
+    {
+        transform.localScale += new Vector3(0.05f, 0.05f, 0.05f);
+    }
 
 
 }

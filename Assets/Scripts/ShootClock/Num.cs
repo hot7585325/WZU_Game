@@ -13,6 +13,9 @@ public class Num : MonoBehaviour
     public ObjectsPool _NumtPool;
     public float Damage;
  
+
+
+    //隨機生產數字
     private void OnEnable()
     {
         int R = Random.RandomRange(0, 12);
@@ -23,7 +26,7 @@ public class Num : MonoBehaviour
 
     void Update()
     {
-        Damage = Index;
+        Damage = Index; //傷害等於數字
         Move();
     }
 
