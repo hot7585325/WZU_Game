@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/START.unity
     guid: bf397ff1e235ec046b33f012835f7983
   - enabled: 1
-    path: Assets/Scenes/Umbrella.unity
+    path: Assets/Scenes/Mix.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/ClockShoot.unity
